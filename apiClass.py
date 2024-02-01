@@ -2,7 +2,7 @@ from db import *
 from db_class import *
 
 
-class UserApi(User, db):
+class UserApi(User, DB):
 
     def get_user(self):
         if self.connect == None:
