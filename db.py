@@ -20,9 +20,10 @@ class DB:
     def execute_query(self, query, *args, is_select=False, is_one=False):
         if not self.execute_cursor(query, args):
             return False
+        cursor.commit()
         if is_select:
             return self.select(is_one)
-        cursor.commit()
+
         return True
 
 
