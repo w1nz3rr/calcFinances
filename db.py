@@ -29,10 +29,3 @@ class DB:
     def close_connection(self):
         self.connect.close()
 
-db = DB()
-db.create_connection()
-db.execute_query('select * from users', is_select=True)
-db.close_connection()
-
-l = ['id', 'login', 'password', 'create_at', 'update_at']
-print([dict(zip(l, i)) for i in db.data])
