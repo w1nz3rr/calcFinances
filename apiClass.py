@@ -21,12 +21,3 @@ class UserApi(User, DB):
 
 
 
-
-
-
-
-
-
-user = UserApi()
-user.get_user(4)
-print(user.user)
