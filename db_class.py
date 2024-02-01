@@ -9,6 +9,9 @@ class User:
     create_at: datetime.datetime
     update_at: datetime.datetime
 
+    def __str__(self):
+        return f'{self.__dict__}'
+
 
 class Category:
     id: int
@@ -18,6 +21,9 @@ class Category:
     update_at: datetime.datetime
     user_id: int
     color: str
+
+    def __str__(self):
+        return f'{self.__dict__}'
 
 
 class Operation:
@@ -29,3 +35,5 @@ class Operation:
     user_id: int
     category_id: int
 
+    def __str__(self):
+        return f'{self.__dict__}'
