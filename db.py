@@ -20,11 +20,10 @@ class DB:
     def execute_query(self, query, *args, is_select=False):
         if not self.execute_cursor(query, args):
             return False
-        self.cursor.commit()
         if is_select:
-            return self.select()
-
-        return True
+            select = self.select()
+        self.cursor.commit()
+        return select
 
 
     def execute_cursor(self, query, args):
@@ -41,6 +40,7 @@ class DB:
     def select(self):
         try:
             self.cache = self.cursor.fetchall()
+
             if len(self.cache) == 1:
                 self.cache = self.cache[0]
             return True

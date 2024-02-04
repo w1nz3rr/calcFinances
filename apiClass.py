@@ -14,7 +14,7 @@ class UserAPI(DB):
             self.user.id, self.user.login, self.user.password, self.user.create_at, self.user.update_at = self.cache
         else:
             self.user = f'Нет такого пользователя'
-        self.close_connection()
+
 
 
     def get_user(self, id):
