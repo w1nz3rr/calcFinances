@@ -17,12 +17,12 @@ class DB:
         self.cursor = self.connect.cursor()
 
 
-    def execute_query(self, query, *args, is_select=False, is_one=False):
+    def execute_query(self, query, *args, is_select=False):
         if not self.execute_cursor(query, args):
             return False
-        cursor.commit()
+        self.cursor.commit()
         if is_select:
-            return self.select(is_one)
+            return self.select()
 
         return True
 
@@ -38,12 +38,11 @@ class DB:
             return False
 
 
-    def select(self, is_one=False):
+    def select(self):
         try:
-            if is_one:
-                self.cache = self.cursor.fetchone()
-            else:
-                self.cache = self.cursor.fetchall()
+            self.cache = self.cursor.fetchall()
+            if len(self.cache) == 1:
+                self.cache = self.cache[0]
             return True
         except:
             return False
