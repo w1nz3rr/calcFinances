@@ -1,24 +1,15 @@
-from flask import Flask, request
-from apiClass import *
+from flask import Flask, request, Blueprint
+from api.api import api
+from api.users.users import users
+from api.auth.auth import auth
+from api.categorys.category import category
 
 app = Flask(__name__)
-userAPI = UserAPI()
 
-@app.get('/api/users/<id>')
-def get_user(id):
-    userAPI.get_user(id)
-    return f'{userAPI.user}'
-
-
-@app.post('/api/users')
-def post_user():
-    login = request.json['login']
-    password = request.json['password']
-    userAPI.post_user(login, password)
-
-    return f'{userAPI.user}'
-
-
+app.register_blueprint(api, url_prefix='/api')
+app.register_blueprint(users, url_prefix='/api/users')
+app.register_blueprint(auth, url_prefix='/api/auth')
+app.register_blueprint(category, url_prefix='/api/users/categorys')
 
 if __name__ == '__main__':
     app.run()

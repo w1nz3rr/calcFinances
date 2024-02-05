@@ -18,15 +18,16 @@ class DB:
 
 
     def execute_query(self, query, *args, is_select=False):
-        if not self.execute_cursor(query, args):
-            return False
+        flag = True
+        if not self.cursor_execute(query, args):
+            flag = False
         if is_select:
-            select = self.select()
+            flag = self.select()
         self.cursor.commit()
-        return select
+        return flag
 
 
-    def execute_cursor(self, query, args):
+    def cursor_execute(self, query, args):
         try:
             if args:
                 self.cursor.execute(query, args)
@@ -41,12 +42,9 @@ class DB:
         try:
             self.cache = self.cursor.fetchall()
 
-            if len(self.cache) == 1:
-                self.cache = self.cache[0]
             return True
         except:
             return False
-
 
 
     def close_connection(self):
