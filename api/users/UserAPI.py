@@ -20,3 +20,11 @@ class UserAPI(DB):
         query = 'select * from users where id = ?'
         self.execute_query(query, id, is_select=True)
         self.set_user()
+
+    def delete_user(self, id):
+        query = 'delete from users where id = ?'
+        return self.execute_query(query, id, is_select=False)
+
+
+
+
