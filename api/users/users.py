@@ -13,6 +13,7 @@ def getUser():
     return f'{userAPI.user}'
 
 
+
 @users.delete('/')
 @jwt_required()
 def deleteUser():
@@ -20,6 +21,19 @@ def deleteUser():
     id = decode_jwt(token)
     return jsonify(status=userAPI.delete_user(id))
 
+
+@users.put('/')
+@jwt_required()
+def putUser():
+    token = request.headers['Authorization']
+    nickname = request.json['nickname']
+    id = decode_jwt(token)
+    userAPI.put_user(id, nickname)
+    if userAPI.user == 'Ошибка изменения':
+        return jsonify(error='Ошибка изменения')
+    user = userAPI.user.__dict__
+    del user['password']
+    return jsonify(user=user)
 
 
 

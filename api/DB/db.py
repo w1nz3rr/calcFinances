@@ -45,9 +45,10 @@ class DB:
         except:
             return False
 
-
     def close_connection(self):
         self.cursor.close()
         self.connect.close()
 
+db = DB()
+db.execute_query('select * from users', is_select=True)
 
