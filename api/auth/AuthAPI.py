@@ -1,5 +1,5 @@
-from api.DB.db import *
-from api.DB.db_class import *
+from api.DB.db import DB
+from api.DB.db_class import User
 from api.users.UserAPI import UserAPI
 
 class AuthAPI(UserAPI, DB):
