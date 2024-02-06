@@ -12,7 +12,7 @@ class AuthAPI(UserAPI, DB):
     def registration(self, login, password):
         self.take_user(login)
         if self.cache:
-            self.user = 'данный логин занят'
+            self.user = 'Данный логин занят'
             return False
         query = 'insert into users (login, password) values (?, ?)'
         self.execute_query(query, login, password, is_select=False)
