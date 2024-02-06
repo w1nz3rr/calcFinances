@@ -20,8 +20,9 @@ def register_user():
         return jsonify(error="Данный логин занят")
 
     user = Auth.user.__dict__
+    token = create_token({'id':user['id']})
     del user['password']
-    return jsonify(user=user)
+    return jsonify(user=user, token=token)
 
 
 @auth.post('/login')
@@ -35,7 +36,15 @@ def login_user():
         return jsonify(error="Неверный логин или пароль")
 
     user = Auth.user.__dict__
+    token = create_token({'id': user['id']})
     del user['password']
-    return jsonify(user=user)
+    return jsonify(user=user, token=token)
+
+@auth.post('/decode')
+@jwt_required()
+def jwttoken():
+    token = request.headers['Authorization']
+    decode = decode_jwt(token)
+    return jsonify(token=token, decode=decode)
 
 
