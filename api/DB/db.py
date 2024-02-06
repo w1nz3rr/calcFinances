@@ -41,7 +41,6 @@ class DB:
     def select(self):
         try:
             self.cache = self.cursor.fetchall()
-
             return True
         except:
             return False

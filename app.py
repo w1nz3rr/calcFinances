@@ -1,4 +1,4 @@
-from flask import Flask, request, Blueprint
+from flask import Flask
 from api.api import api
 from api.users.users import users
 from api.auth.auth import auth

@@ -6,8 +6,10 @@ class AuthAPI(UserAPI, DB):
     user = User
 
     def registration(self, login, password):
-        query = 'insert into users (login, password) values (?, ?); select * from users where login = ?;'
-        self.execute_query(query, login, password, login, is_select=True)
+        query = 'insert into users (login, password) values (?, ?)'
+        self.execute_query(query, login, password, is_select=False)
+        query = 'select * from users where login = ?'
+        self.execute_query(query, login, is_select=True)
         self.set_user()
 
     def login_by_password(self, login, password):

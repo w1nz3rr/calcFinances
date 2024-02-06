@@ -9,6 +9,7 @@ class UserAPI(DB):
         self.user = User()
 
     def set_user(self):
+        print(self.cache)
         if self.cache:
             self.user.id, self.user.login, self.user.password, self.user.create_at, self.user.update_at = self.cache[0]
         else:
