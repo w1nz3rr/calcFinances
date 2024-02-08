@@ -1,8 +1,11 @@
-from flask import Flask, Blueprint, request, jsonify
-from api.users.UserAPI import UserAPI
+from flask import Blueprint, request, jsonify
+
 from api.auth.jwt_token import *
+from api.users.UserAPI import UserAPI
+
 users = Blueprint('users', __name__)
 userAPI = UserAPI()
+
 
 @users.get('/')
 @jwt_required()
@@ -10,8 +13,9 @@ def getUser():
     token = request.headers['Authorization']
     id = decode_jwt(token)
     userAPI.get_user(id)
-    return f'{userAPI.user}'
-
+    user = UserAPI.user.__dict__
+    del user['password']
+    return jsonify(user=user)
 
 
 @users.delete('/')
@@ -34,6 +38,3 @@ def putUser():
     user = userAPI.user.__dict__
     del user['password']
     return jsonify(user=user)
-
-
-

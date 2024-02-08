@@ -1,24 +1,21 @@
-import datetime
-
 from api.DB.db import DB
 from api.DB.db_class import User
 from api.users.UserAPI import UserAPI
-from datetime import datetime
 
 class AuthAPI(UserAPI, DB):
     user = User
 
+    def take_user(self, login):
+        query = 'select * from users where login = ?'
+        self.execute_query(query, login, is_select=True)
 
-
-
-    def registration(self, login, password, nickname):
+    def registration(self, login, password):
         self.take_user(login)
         if self.cache:
             self.user = 'Данный логин занят'
             return False
-        date = datetime.now()
-        query = 'insert into users (login, password, create_at, update_at, nickname) values (?, ?, ?, ?, ?)'
-        self.execute_query(query, login, password, date, date, nickname, is_select=False)
+        query = 'insert into users (login, password) values (?, ?)'
+        self.execute_query(query, login, password, is_select=False)
         self.take_user(login)
         self.set_user()
 

@@ -34,7 +34,8 @@ class DB:
             else:
                 self.cursor.execute(query)
             return True
-        except:
+        except pyodbc.Error as e:
+            print(e)
             return False
 
 
