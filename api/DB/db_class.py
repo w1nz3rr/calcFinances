@@ -7,6 +7,7 @@ class User:
     password: str
     create_at: datetime.datetime
     update_at: datetime.datetime
+    nickname: str
 
     def __str__(self):
         return f'{self.__dict__}'

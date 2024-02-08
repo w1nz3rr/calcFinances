@@ -1,13 +1,22 @@
-from api.DB.db import *
-from api.DB.db_class import *
+from api.DB.db import DB
+from api.DB.db_class import User
 from api.users.UserAPI import UserAPI
 
 class AuthAPI(UserAPI, DB):
     user = User
 
+    def take_user(self, login):
+        query = 'select * from users where login = ?'
+        self.execute_query(query, login, is_select=True)
+
     def registration(self, login, password):
-        query = 'insert into users (login, password) values (?, ?); select * from users where login = ?;'
-        self.execute_query(query, login, password, login, is_select=True)
+        self.take_user(login)
+        if self.cache:
+            self.user = 'Данный логин занят'
+            return False
+        query = 'insert into users (login, password) values (?, ?)'
+        self.execute_query(query, login, password, is_select=False)
+        self.take_user(login)
         self.set_user()
 
     def login_by_password(self, login, password):
@@ -15,7 +24,4 @@ class AuthAPI(UserAPI, DB):
         self.execute_query(query, login, password, is_select=True)
         self.set_user()
 
-    def login_by_id(self, id):
-        query = 'select * from users where id = ?'
-        self.execute_query(query, id, is_select=True)
-        self.set_user()
+

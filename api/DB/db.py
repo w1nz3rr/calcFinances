@@ -34,21 +34,22 @@ class DB:
             else:
                 self.cursor.execute(query)
             return True
-        except:
+        except pyodbc.Error as e:
+            print(e)
             return False
 
 
     def select(self):
         try:
             self.cache = self.cursor.fetchall()
-
             return True
         except:
             return False
-
 
     def close_connection(self):
         self.cursor.close()
         self.connect.close()
 
+db = DB()
+db.execute_query('select * from users', is_select=True)
 
