@@ -19,7 +19,7 @@ class AuthAPI(UserAPI, DB):
         self.take_user(login)
         self.set_user()
 
-    def login_by_password(self, login, password):
+    def login(self, login, password):
         query = 'select * from users where login = ? and password = ?'
         self.execute_query(query, login, password, is_select=True)
         self.set_user()

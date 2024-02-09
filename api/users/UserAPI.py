@@ -2,6 +2,7 @@ from api.DB.db import DB
 from api.DB.db_class import User
 from datetime import datetime
 
+
 class UserAPI(DB):
     user: User
 
@@ -12,20 +13,15 @@ class UserAPI(DB):
     def set_user(self):
         print('cache:', self.cache)
         if self.cache:
-            self.user.id, self.user.login, self.user.password, self.user.create_at, self.user.update_at, self.user.nickname = self.cache[0]
+            self.user.id, self.user.login, self.user.password, self.user.create_at, self.user.update_at, self.user.nickname = \
+            self.cache[0]
         else:
             self.user = f'Нет такого пользователя'
-
 
     def get_user(self, id):
         query = 'select * from users where id = ?'
         self.execute_query(query, id, is_select=True)
         self.set_user()
-
-    def take_user(self, login):
-        query = 'select * from users where login = ?'
-        self.execute_query(query, login, is_select=True)
-
 
     def delete_user(self, id):
         query = 'delete from users where id = ?'
@@ -37,5 +33,3 @@ class UserAPI(DB):
             self.get_user(id)
         else:
             self.user = 'Ошибка изменения'
-
-

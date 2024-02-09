@@ -7,15 +7,12 @@ class DB:
     cursor = None
     cache = None
 
-
     def __init__(self):
         self.create_connection()
-
 
     def create_connection(self):
         self.connect = pyodbc.connect(self.data_connect)
         self.cursor = self.connect.cursor()
-
 
     def execute_query(self, query, *args, is_select=False):
         flag = True
@@ -25,7 +22,6 @@ class DB:
             flag = self.select()
         self.cursor.commit()
         return flag
-
 
     def cursor_execute(self, query, args):
         try:
@@ -38,7 +34,6 @@ class DB:
             print(e)
             return False
 
-
     def select(self):
         try:
             self.cache = self.cursor.fetchall()
@@ -50,6 +45,6 @@ class DB:
         self.cursor.close()
         self.connect.close()
 
+
 db = DB()
 db.execute_query('select * from users', is_select=True)
-

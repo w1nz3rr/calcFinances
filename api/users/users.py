@@ -3,7 +3,7 @@ from flask import Blueprint, request, jsonify
 from api.auth.jwt_token import *
 from api.users.UserAPI import UserAPI
 
-users = Blueprint('users', __name__)
+users = Blueprint('users', __name__, url_prefix='/api/users')
 userAPI = UserAPI()
 
 

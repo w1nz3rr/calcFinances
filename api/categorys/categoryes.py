@@ -1,10 +1,10 @@
 from flask import Flask, Blueprint, jsonify, request, abort
-from api.categorys.CategoryesAPI import CategoryAPI
+from api.categorys.CategoryesAPI import CategoryesAPI
 from api.categorys.one_categoryAPI import One_categoryAPI
 from api.auth.jwt_token import *
 
-categoryes = Blueprint('category', __name__)
-categoryAPI = CategoryAPI()
+categoryes = Blueprint('category', __name__, url_prefix='/api/users/categoryes')
+categoryAPI = CategoryesAPI()
 
 @categoryes.get('/')
 @jwt_required()

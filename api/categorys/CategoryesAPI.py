@@ -2,7 +2,7 @@ from api.DB.db import *
 from api.DB.db_class import *
 from datetime import datetime
 
-class CategoryAPI(DB):
+class CategoryesAPI(DB):
     categoryes = []
     def __init__(self):
         super().__init__()
