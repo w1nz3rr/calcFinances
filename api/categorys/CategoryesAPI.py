@@ -26,7 +26,8 @@ class CategoryesAPI(DB):
 
 
     def post_category(self, name, description, user_id):
-        query = 'insert into category (name, description, user_id) values (?, ?, ?)'
-        self.execute_query(query, name, description, user_id, is_select=False)
+        query = 'insert into category (name, description, create_at, update_at, user_id) values (?, ?, ?, ?, ?)'
+        date = datetime.now()
+        self.execute_query(query, name, description, date, date, user_id, is_select=False)
         self.get_category(user_id)
 
