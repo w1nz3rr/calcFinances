@@ -36,7 +36,7 @@ def getCategory(id):
     token = request.headers['Authorization']
     user_id = decode_jwt(token)
     one_categoryAPI.get_category(user_id, id)
-    if one_categoryAPI.category == 'Нет категории':
+    if one_categoryAPI.error == 'Нет категории':
         abort(404)
     return jsonify(category=one_categoryAPI.category.__dict__)
 

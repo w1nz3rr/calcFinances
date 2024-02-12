@@ -33,7 +33,7 @@ def putUser():
     nickname = request.json['nickname']
     id = decode_jwt(token)
     userAPI.put_user(id, nickname)
-    if userAPI.user == 'Ошибка изменения':
+    if userAPI.error == 'Ошибка изменения':
         return jsonify(error='Ошибка изменения')
     user = userAPI.user.__dict__
     del user['password']

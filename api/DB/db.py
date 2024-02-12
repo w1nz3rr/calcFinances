@@ -6,6 +6,7 @@ class DB:
     connect = None
     cursor = None
     cache = None
+    error = None
 
     def __init__(self):
         self.create_connection()

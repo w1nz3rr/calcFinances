@@ -16,7 +16,7 @@ def register_user():
         return jsonify(error="Пароли не совпадают")
     Auth.registration(login, password)
 
-    if Auth.user == "Данный логин занят":
+    if Auth.error == "Данный логин занят":
         return jsonify(error="Данный логин занят")
 
     user = Auth.user.__dict__
@@ -32,7 +32,7 @@ def login_user():
     password = request.json['password']
     Auth.login(login, password)
 
-    if Auth.user == 'Нет такого пользователя':
+    if Auth.error == 'Нет такого пользователя':
         abort(401)
         # return jsonify(error="Неверный логин или пароль")
 

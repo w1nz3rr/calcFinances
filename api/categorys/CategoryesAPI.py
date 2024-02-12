@@ -16,7 +16,7 @@ class CategoryesAPI(DB):
                 category.id, category.name, category.description, category.create_at, category.update_at, category.user_id, category.color = item
                 self.categoryes.append(category.__dict__)
         else:
-            self.categoryes = 'Нет категорий'
+            self.error = 'Нет категорий'
 
     def get_category(self, id):
         query = 'select * from category where user_id = ?'
