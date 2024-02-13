@@ -11,10 +11,11 @@ def register_user():
     login = request.json['login']
     password = request.json['password']
     confirm_password = request.json['confirm_password']
+    nickname = request.json['nickname']
 
     if password != confirm_password:
         return jsonify(error="Пароли не совпадают")
-    Auth.registration(login, password)
+    Auth.registration(login, password, nickname)
 
     if Auth.error == "Данный логин занят":
         return jsonify(error="Данный логин занят")
