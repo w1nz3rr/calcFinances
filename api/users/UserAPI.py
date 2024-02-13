@@ -4,7 +4,7 @@ from datetime import datetime
 
 
 class UserAPI(DB):
-    user: User
+    user: User()
 
     def __init__(self):
         super().__init__()
@@ -16,9 +16,10 @@ class UserAPI(DB):
             self.user.id, self.user.login, self.user.password, self.user.create_at, self.user.update_at, self.user.nickname = \
             self.cache[0]
         else:
-            self.user = f'Нет такого пользователя'
+            self.error = f'Нет такого пользователя'
 
     def get_user(self, id):
+        self.error = None
         query = 'select * from users where id = ?'
         self.execute_query(query, id, is_select=True)
         self.set_user()
@@ -32,4 +33,4 @@ class UserAPI(DB):
         if self.execute_query(query, nickname, datetime.now(), id, is_select=False):
             self.get_user(id)
         else:
-            self.user = 'Ошибка изменения'
+            self.error = 'Ошибка изменения'
