@@ -5,6 +5,8 @@ from api.auth.jwt_token import *
 
 categoryes = Blueprint('category', __name__, url_prefix='/api/users/categoryes')
 categoryAPI = CategoryesAPI()
+one_categoryAPI = One_categoryAPI()
+
 
 @categoryes.get('/')
 @jwt_required()
@@ -27,7 +29,6 @@ def postCategory():
     return jsonify(categorys=categoryAPI.categoryes)
 
 
-one_categoryAPI = One_categoryAPI()
 
 
 @categoryes.get('/<id>')
@@ -46,16 +47,21 @@ def getCategory(id):
 def deleteCategory(id):
     token = request.headers['Authorization']
     user_id = decode_jwt(token)
-    return jsonify(status=one_categoryAPI.delete_category(user_id, id))
+    if one_categoryAPI.delete_category(user_id, id):
+        abort(204)
+    else:
+        return jsonify(status=False)
 
 
 @categoryes.put('/<id>')
 @jwt_required()
 def putCategory(id):
     token = request.headers['Authorization']
+    user_id = decode_jwt(token)
+
     name = request.json['name']
     description = request.json['description']
     color = request.json['color']
-    user_id = decode_jwt(token)
+
     one_categoryAPI.put_category(id, user_id, name, description, color)
     return jsonify(category=one_categoryAPI.category.__dict__)
