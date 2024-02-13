@@ -6,7 +6,7 @@ class CategoryesAPI(DB):
     categoryes = []
     def __init__(self):
         super().__init__()
-        categoryes = []
+        self.categoryes = []
 
     def set_category(self):
         self.categoryes.clear()
@@ -21,7 +21,6 @@ class CategoryesAPI(DB):
     def get_category(self, id):
         query = 'select * from category where user_id = ?'
         self.execute_query(query, id, is_select=True)
-
         self.set_category()
 
 

@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, abort
 
 from api.auth.jwt_token import *
 from api.users.UserAPI import UserAPI
@@ -13,7 +13,7 @@ def getUser():
     token = request.headers['Authorization']
     id = decode_jwt(token)
     userAPI.get_user(id)
-    user = UserAPI.user.__dict__
+    user = userAPI.user.__dict__
     del user['password']
     return jsonify(user=user)
 
@@ -23,7 +23,10 @@ def getUser():
 def deleteUser():
     token = request.headers['Authorization']
     id = decode_jwt(token)
-    return jsonify(status=userAPI.delete_user(id))
+    if userAPI.delete_user(id):
+        abort(204)
+    else:
+        return jsonify(status=False)
 
 
 @users.put('/')
