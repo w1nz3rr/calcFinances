@@ -9,6 +9,7 @@ class CategoryesAPI(DB):
         self.categoryes = []
 
     def set_category(self):
+        self.error = None
         self.categoryes.clear()
         if self.cache:
             for item in self.cache:

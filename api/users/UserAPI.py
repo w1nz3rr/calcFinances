@@ -19,6 +19,7 @@ class UserAPI(DB):
             self.error = f'Нет такого пользователя'
 
     def get_user(self, id):
+        self.error = None
         query = 'select * from users where id = ?'
         self.execute_query(query, id, is_select=True)
         self.set_user()
