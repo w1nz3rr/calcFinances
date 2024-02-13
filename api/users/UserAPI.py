@@ -4,7 +4,7 @@ from datetime import datetime
 
 
 class UserAPI(DB):
-    user: User
+    user: User()
 
     def __init__(self):
         super().__init__()
