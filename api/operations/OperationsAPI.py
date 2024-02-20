@@ -13,7 +13,7 @@ class OperationsAPI(DB):
         if self.cache:
             for item in self.cache:
                 operation = Operation()
-                operation.id, operation.type_operation, operation.date, operation.value, operation.description, operation.user_id, operation.category_id = item
+                operation.id, operation.type_operation, operation.date, operation.operation_value, operation.description, operation.user_id, operation.category_id = item
                 self.operations.append(operation.__dict__)
         else:
             self.error = 'Нет операций'
@@ -23,8 +23,8 @@ class OperationsAPI(DB):
         self.execute_query(query, user_id, category_id, is_select=True)
         self.set_operations()
 
-    def post_operation(self, type_operation, value, description, user_id, category_id):
-        query = 'insert into operation (type_operation, date, value, description, user_id, category_id) values (?, ?, ?, ?, ?, ?)'
-        date = datetime.now()
-        self.execute_query(query, type_operation, date, value, description, user_id, category_id, is_select=False)
+    def post_operation(self, type_operation, operation_value, description, user_id, category_id):
+        query = 'insert into operation (type_operation, date_operation, operation_value, description, user_id, category_id) values (?, ?, ?, ?, ?, ?)'
+        date_operation = datetime.now()
+        self.execute_query(query, type_operation, date_operation, operation_value, description, user_id, category_id, is_select=False)
         self.get_operation(user_id, category_id)

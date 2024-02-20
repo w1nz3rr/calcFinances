@@ -10,8 +10,8 @@ class One_operationAPI(DB):
     def set_operation(self):
         self.operation = Operation()
         if self.cache:
-            operation.id, operation.type_operation, operation.date, operation.value,\
-                operation.description, operation.user_id, operation.category_id = self.cache[0]
+            self.operation.id,  self.operation.type_operation,  self.operation.date,  self.operation.value, \
+            self.operation.description,  self.operation.user_id,  self.operation.category_id = self.cache[0]
         else:
             self.error = 'нет операции'
 
@@ -26,7 +26,7 @@ class One_operationAPI(DB):
         return self.execute_query(query, user_id, operation_id, is_select=False)
 
     def put_operation(self, operation_id, type_operation, value, description, user_id):
-        query = 'update operation set type_operation = ?, value = ?, description = ? where id = ?'
+        query = 'update operation set type_operation = ?, operation_value = ?, description = ? where id = ?'
         self.execute_query(query, type_operation, value, description, operation_id)
         self.get_operation(user_id, operation_id)
 

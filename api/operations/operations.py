@@ -21,11 +21,11 @@ def getOperations(category_id):
 def postOperations(category_id):
     token = request.headers['Authorization']
     type_operation = request.json['type_operation']
-    value = request.json['value']
+    operation_value = request.json['operation_value']
     description = request.json['description']
 
     id = decode_jwt(token)
-    operationAPI.post_operation(type_operation, value, description, id, category_id)
+    operationAPI.post_operation(type_operation, operation_value, description, id, category_id)
     return jsonify(operations=operationAPI.operations)
 
 @operations.get('/<id>')
@@ -55,8 +55,8 @@ def putOperation(category_id, id):
     user_id = decode_jwt(token)
 
     type_operation = request.json['type_operation']
-    value = request.json['value']
+    operation_value = request.json['value']
     description = request.json['description']
 
-    one_operationAPI.put_operation(id, type_operation, value, description, user_id)
+    one_operationAPI.put_operation(id, type_operation, operation_value, description, user_id)
     return jsonify(operation=one_operationAPI.operation.__dict__)
