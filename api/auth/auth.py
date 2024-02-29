@@ -1,9 +1,11 @@
 from flask import Flask, Blueprint, request, jsonify, abort
 from api.auth.AuthAPI import AuthAPI
 from api.auth.jwt_token import *
+from api.auth.UserValidation import UserValidation
+
 
 auth = Blueprint('auth', __name__, url_prefix='/api/auth')
-
+user_valid = UserValidation()
 
 @auth.post('/registration')
 def register_user():
@@ -12,9 +14,10 @@ def register_user():
     password = request.json['password']
     confirm_password = request.json['confirm_password']
     nickname = request.json['nickname']
+    error = user_valid.validate_register(login, password, confirm_password, nickname)
+    if error:
+        return jsonify(error=error)
 
-    if password != confirm_password:
-        return jsonify(error="Пароли не совпадают")
     Auth.registration(login, password, nickname)
 
     if Auth.error == "Данный логин занят":
