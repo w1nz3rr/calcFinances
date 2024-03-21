@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from api.api import api
 from api.users.users import users
 from api.auth.auth import auth
@@ -7,8 +8,11 @@ from api.operations.operations import operations
 from flask_jwt_extended import JWTManager
 
 app = Flask(__name__)
-app.config['JWT_SECRET_KEY'] = 'SECRET_KEY'
 jwt = JWTManager(app)
+cors = CORS(app)
+app.config['JWT_SECRET_KEY'] = 'SECRET_KEY'
+app.config['CORS_HEADERS'] = 'Content-Type'
+
 
 app.register_blueprint(api)
 app.register_blueprint(users)

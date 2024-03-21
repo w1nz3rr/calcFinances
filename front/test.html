@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <p> Введите логин</p>
+        <input type="text" id="login">
+        <p> Введите пароль</p>
+        <input type="text" id="password">
+        <input type="button" value="Войти" onclick="auth()">
+    </form>
+    <script>
+        function auth() {
+
+            const data = {
+              login: document.getElementById('login').value,
+              password: document.getElementById('password').value,
+            }
+
+
+            fetch('http://127.0.0.1:5000/api/auth/login', {
+                method:'POST',
+                body: data,
+                headers: {
+                'Content-Type': "application/json;charset=utf-8"
+            },
+            })
+            console.log(data)
+        }
+    </script>
+</body>
+</html>

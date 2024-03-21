@@ -2,6 +2,7 @@ from flask import Flask, Blueprint, request, jsonify, abort
 from api.auth.AuthAPI import AuthAPI
 from api.auth.jwt_token import *
 from api.auth.UserValidation import UserValidation
+from flask_cors import cross_origin
 
 
 auth = Blueprint('auth', __name__, url_prefix='/api/auth')
@@ -35,7 +36,7 @@ def login_user():
     login = request.json['login']
     password = request.json['password']
     Auth.login(login, password)
-
+    print(request.json)
     if Auth.error == 'Нет такого пользователя':
         abort(401)
         # return jsonify(error="Неверный логин или пароль")
