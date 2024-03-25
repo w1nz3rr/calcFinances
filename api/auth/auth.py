@@ -32,7 +32,6 @@ def register_user():
 
 
 @auth.post('/login')
-@cross_origin()
 def login_user():
     Auth = AuthAPI()
     login = request.json['login']
