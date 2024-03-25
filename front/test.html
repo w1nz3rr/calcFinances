@@ -22,16 +22,17 @@
               login: document.getElementById('login').value,
               password: document.getElementById('password').value,
             }
+            let newData = JSON.stringify(data)
 
-
-            fetch('http://127.0.0.1:5000/api/auth/login', {
+            let request = fetch('http://127.0.0.1:5000/api/auth/login', {
                 method:'POST',
-                body: data,
+                body: newData,
                 headers: {
-                'Content-Type': "application/json;charset=utf-8"
-            },
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
             })
-            console.log(data)
+
+            console.log(request)
         }
     </script>
 </body>
