@@ -38,7 +38,6 @@ def login_user():
     password = request.json['password']
     Auth.login(login, password)
     print(request.json)
-    print(Auth.error)
     if Auth.error == 'Нет такого пользователя':
         #abort(401)
         return jsonify(error="Неверный логин или пароль")

@@ -47,5 +47,4 @@ class DB:
         self.connect.close()
 
 
-db = DB()
-db.execute_query('select * from users', is_select=True)
+

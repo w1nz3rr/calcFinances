@@ -23,6 +23,7 @@ class UserValidation:
     def check_password(self, password):
         if len(password) == 0:
             self.error['password'] = 'Пароль не должен быть пустым'
+            return False
         elif len(password) < 8:
             self.error['password'] = 'Пароль недостаточно длинный'
         for el in password:
