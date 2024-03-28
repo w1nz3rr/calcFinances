@@ -1,6 +1,6 @@
 from api.DB.db import DB
 from api.DB.db_class import User
-from api.users.UserAPI import UserAPI
+from api.modules.users.UserAPI import UserAPI
 from datetime import datetime
 
 class AuthAPI(UserAPI, DB):

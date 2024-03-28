@@ -1,9 +1,10 @@
-from flask import Blueprint, request, jsonify, abort
+from flask import request, jsonify, abort
+from app import users
 
-from api.auth.jwt_token import *
-from api.users.UserAPI import UserAPI
+from api.func.jwt_token import *
+from api.modules.users.UserAPI import UserAPI
 
-users = Blueprint('users', __name__, url_prefix='/api/users')
+
 userAPI = UserAPI()
 
 

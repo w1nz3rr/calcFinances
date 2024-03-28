@@ -1,15 +1,15 @@
-from flask import Flask, Blueprint, request, jsonify, abort
-from api.auth.AuthAPI import AuthAPI
-from api.auth.jwt_token import *
-from api.auth.UserValidation import UserValidation
-from flask_cors import cross_origin
+from flask import request, jsonify
+from app import auth
+
+from api.modules.auth.AuthAPI import AuthAPI
+from api.func.jwt_token import *
+from api.func.UserValidation import UserValidation
 
 
-auth = Blueprint('auth', __name__, url_prefix='/api/auth')
+
 user_valid = UserValidation()
 
 @auth.post('/registration')
-
 def register_user():
     Auth = AuthAPI()
     login = request.json['login']

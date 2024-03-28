@@ -1,10 +1,5 @@
-from flask import Flask
+from flask import Flask, Blueprint
 from flask_cors import CORS
-from api.api import api
-from api.users.users import users
-from api.auth.auth import auth
-from api.categorys.categoryes import categoryes
-from api.operations.operations import operations
 from flask_jwt_extended import JWTManager
 
 app = Flask(__name__)
@@ -13,12 +8,18 @@ cors = CORS(app)
 app.config['JWT_SECRET_KEY'] = 'SECRET_KEY'
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-
-app.register_blueprint(api)
-app.register_blueprint(users)
+auth = Blueprint('auth', __name__, url_prefix='/api/auth')
 app.register_blueprint(auth)
+
+users = Blueprint('users', __name__, url_prefix='/api/users')
+app.register_blueprint(users)
+
+categoryes = Blueprint('category', __name__, url_prefix='/api/users/categoryes')
 app.register_blueprint(categoryes)
+
+operations = Blueprint('operations', __name__, url_prefix='/api/users/categoryes/<category_id>/operations')
 app.register_blueprint(operations)
+
 
 
 if __name__ == '__main__':

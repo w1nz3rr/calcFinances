@@ -1,9 +1,11 @@
-from flask import Flask, Blueprint, jsonify, request, abort
-from api.operations.OperationsAPI import OperationsAPI
-from api.operations.one_operationAPI import One_operationAPI
-from api.auth.jwt_token import *
+from flask import jsonify, request, abort
+from app import operations
 
-operations = Blueprint('operations', __name__, url_prefix='/api/users/categoryes/<category_id>/operations')
+from api.modules.operations.OperationsAPI import OperationsAPI
+from api.modules.operations.one_operationAPI import One_operationAPI
+from api.func.jwt_token import *
+
+
 operationAPI = OperationsAPI()
 one_operationAPI = One_operationAPI()
 
